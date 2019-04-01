@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Malzeme Hatası Güncelle ";
+}
+@using StatisticalQualityControl.Models
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph">
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Malzeme Hatası Ekleme Sayfası</h3>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <form action="/MaterialMistakes/Edit" method="post">
+                    <input type="hidden" id="HiddenMaterialID" name="HiddenMaterialID" value="@ViewBag.Mat.id">
+                    <input type="hidden" id="HiddenMistakeID" name="HiddenMistakeID" value="@ViewBag.Mis.id">
+                    Malzeme Adı
+                    <select class="form-control" name="MaterialID">
+                        @foreach (Material mat in ViewBag.material)
+                        {
+                            if (mat == ViewBag.Mat)
+                            {
+                                <option value="@mat.id" selected="selected">@mat.MaterialName</option>
+                            }
+                            else
+                            {
+                                <option value="@mat.id">@mat.MaterialName</option>
+                            }
+                        }
+                    </select>
+                    <br />
+                    Hata Adı
+                    <select class="form-control" name="MistakeID">
+                        @foreach (Mistake mis in ViewBag.mistake)
+                        {
+                            if (mis == ViewBag.Mis)
+                            {
+                                <option value="@mis.id" selected="selected">@mis.MistakeName</option>
+                            }
+                            else
+                            {
+                                <option value="@mis.id">@mis.MistakeName</option>
+                            }
+                        }
+                    </select>
+                    <br />
+                    <a href="/MaterialMistakes/Index">Geri</a>
+                    <button type="submit" class="btn btn-success">Kaydet</button>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+

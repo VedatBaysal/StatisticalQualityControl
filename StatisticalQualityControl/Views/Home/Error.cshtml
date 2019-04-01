@@ -1,22 +1,29 @@
 ﻿
 @{
-    ViewBag.Title = "Ana Sayfa";
+    ViewBag.Title = "Hata Oluştu";
 }
+
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="dashboard_graph">
             <div class="row x_title">
                 <div class="col-md-6">
-                    <h3>Ana Sayfa</h3>
+                    <h3>HATA</h3>
                 </div>
                 <div class="col-md-6">
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                ...
+                @if (ViewBag.Message == null)
+                {
+                    <b>Beklenmeyen Bir Hata Oluştu...</b>
+                }
+                else
+                {
+                    <b>@ViewBag.Message</b>
+                }
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
 </div>
-

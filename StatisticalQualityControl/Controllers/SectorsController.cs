@@ -19,22 +19,6 @@ namespace StatisticalQualityControl.Controllers
         {
             return View(db.Sectors.ToList());
         }
-
-        // GET: Sectors/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sector sector = db.Sectors.Find(id);
-            if (sector == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sector);
-        }
-
         // GET: Sectors/Create
         public ActionResult Create()
         {
@@ -88,33 +72,6 @@ namespace StatisticalQualityControl.Controllers
             }
             return View(sector);
         }
-
-        // GET: Sectors/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sector sector = db.Sectors.Find(id);
-            if (sector == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sector);
-        }
-
-        // POST: Sectors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Sector sector = db.Sectors.Find(id);
-            db.Sectors.Remove(sector);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -4,30 +4,45 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph">
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Hata Listesi</h3>
+                </div>
+                <div class="col-md-6">
+                    <p style="float: right">
+                        @Html.ActionLink("Yeni Hata Ekle", "Create")
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                
+                <table class="table">
+                    <tr>
+                        <th>
+                            Hata Adları
+                        </th>
+                        <th></th>
+                    </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MistakeName)
-        </th>
-        <th></th>
-    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MistakeName)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Güncelle", "Edit", new { id = item.id }) |
+                                @Html.ActionLink("Sil", "Delete", new { id = item.id })
+                            </td>
+                        </tr>
+                    }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MistakeName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
-
-</table>
+                </table>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

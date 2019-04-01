@@ -1,43 +1,57 @@
 ﻿@model StatisticalQualityControl.Models.MistakeOccurenceFactorDetail
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Hata Sebebine Detay Ekle";
 }
 
-<h2>Create</h2>
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>MistakeOccurenceFactorDetail</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.MistakeOccurenceFactorID, "MistakeOccurenceFactorID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("MistakeOccurenceFactorID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.MistakeOccurenceFactorID, "", new { @class = "text-danger" })
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph">
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Hata Sebebine Detay Ekle</h3>
+                </div>
+                <div class="col-md-6">
+                </div>
             </div>
-        </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.MistakeOccurenceFactorDetailName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MistakeOccurenceFactorDetailName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MistakeOccurenceFactorDetailName, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                    <div class="form-horizontal">
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MistakeOccurenceFactorID, "Hata Sebebi", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("MistakeOccurenceFactorID", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MistakeOccurenceFactorID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Detay", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.MistakeOccurenceFactorDetailName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MistakeOccurenceFactorDetailName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Ekle" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div>
+                    @Html.ActionLink("Geri", "Index")
+                </div>
+
             </div>
+            <div class="clearfix"></div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>

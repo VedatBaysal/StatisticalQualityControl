@@ -19,22 +19,6 @@ namespace StatisticalQualityControl.Controllers
         {
             return View(db.MistakeOccurrenceFactors.ToList());
         }
-
-        // GET: MistakeOccurrenceFactors/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MistakeOccurrenceFactor mistakeOccurrenceFactor = db.MistakeOccurrenceFactors.Find(id);
-            if (mistakeOccurrenceFactor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mistakeOccurrenceFactor);
-        }
-
         // GET: MistakeOccurrenceFactors/Create
         public ActionResult Create()
         {

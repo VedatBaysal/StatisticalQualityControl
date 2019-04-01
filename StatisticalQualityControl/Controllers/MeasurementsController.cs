@@ -19,22 +19,7 @@ namespace StatisticalQualityControl.Controllers
         {
             return View(db.Measurements.ToList());
         }
-
-        // GET: Measurements/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Measurement measurement = db.Measurements.Find(id);
-            if (measurement == null)
-            {
-                return HttpNotFound();
-            }
-            return View(measurement);
-        }
-
+        
         // GET: Measurements/Create
         public ActionResult Create()
         {

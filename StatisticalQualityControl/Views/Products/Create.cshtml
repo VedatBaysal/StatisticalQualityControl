@@ -1,0 +1,258 @@
+﻿@using StatisticalQualityControl.Models
+@using StatisticalQualityControl.ViewModel
+@model ProductProperties
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<form action="/Products/Create" method="post">
+
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Ürün Sümülasyonu Oluştur</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="dashboard_graph">
+                <div class="row x_title">
+                    <div class="col-md-6">
+                        <h4>Ürün Adı</h4>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <input type="text" class="form-control" name="ProductName" placeholder="Ürün Adı">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Renk Belirleyin <small>.</small></h2>
+                        <div class="clearfix">
+                            <br />
+                        </div>
+                    </div>
+                    <div class="x_content">
+                        <form class="form-horizontal form-label-left">
+                            <div class="form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="input-group demo2">
+                                        <input type="text" id="txtColor" value="#e01ab5" class="form-control" />
+                                        <span class="input-group-addon"><i></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider-dashed"></div>
+
+                            <div class="form-group">
+                                <a href="javascript:;" id="ColorAdd" class="btn btn-primary">Ekle</a>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Renk Seçin <small>.</small></h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+
+                        <form class="form-horizontal form-label-left">
+
+                            <div class="form-group">
+                                <select id="ProductColors" name="ProductColors" class="select2_multiple form-control" multiple></select>
+                            </div>
+                            <div class="divider-dashed"></div>
+
+                            <div class="form-group">
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Malzeme Ve Ölçüsünü Belirleyin <small>.</small></h2>
+
+
+                        <select class="select2_single form-control" id="ProductMaterials" name="ProductMaterials">
+                            @foreach (Material material in Model.ProductMaterials)
+                            {
+                                <option value="@material.id">@material.MaterialName</option>
+                            }
+                        </select>
+                        <br />
+                        <select class="select2_single form-control" id="ProductMeasurements" name="ProductMeasurements">
+                            @foreach (Measurement measurement in Model.ProductMeasurements)
+                            {
+                                <option value="@measurement.id">@measurement.MeasurementName</option>
+                            }
+                        </select>
+                        <div class="clearfix">
+                            <br />
+                        </div>
+                    </div>
+                    <div class="x_content">
+                        <div class="form-group">
+                            <label>Alt Limit:</label>
+                            <input type="number" class="form-control" id="LowerSpecificationLimit" name="LowerSpecificationLimit" />
+                            <label>Üst Limit:</label>
+                            <input type="number" class="form-control" id="UpperSpecificationLimit" name="UpperSpecificationLimit" />
+                        </div>
+                        <div class="divider-dashed"></div>
+
+                        <div class="form-group">
+
+                            <a href="javascript:;" id="AddMaterialMeasuresOfProduct" class="btn btn-primary">Ekle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Malzeme Ve Ölçüsünü Seçin <small>.</small></h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="form-group">
+                            <select id="MaterialMeasuresOfProduct" name="MaterialMeasuresOfProduct" class="select2_multiple form-control" multiple></select>
+                        </div>
+                        <div class="divider-dashed"></div>
+
+                        <div class="form-group">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="dashboard_graph">
+                <div class="row x_title">
+                    <div class="col-md-6">
+                        <h4>Sektör Seç</h4>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+
+                    <div class="form-group">
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="select2_multiple form-control" multiple="multiple" name="ProductSectors">
+                                @foreach (Sector sector in Model.ProductSectors)
+                                {
+                                    <option value="@sector.id">@sector.SectorName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <button type="submit" class="btn btn-primary"> Simülasyon Oluştur</button>
+</form>
+
+@section head
+{
+    <link href="/Content/css/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+
+    <!-- select2 -->
+    <link href="/Content/css/select/select2.min.css" rel="stylesheet">
+
+}
+@section scripts
+{
+
+    <script src="/Content/js/colorpicker/bootstrap-colorpicker.min.js"></script>
+    <script src="/Content/js/colorpicker/docs.js"></script>
+    <!-- select2 -->
+    <script src="/Content/js/select/select2.full.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".select2_single").select2({
+                placeholder: "Seçim Yap",
+                allowClear: true
+            });
+        });
+        $(document).ready(function () {
+            $(".select2_multiple").select2({
+                maximumSelectionLength: 5,
+                placeholder: "En Fazla 5 Seçim Eklenebilir",
+                allowClear: true
+            });
+        });
+    </script>
+    <!-- /select2 -->
+    <script>
+
+        $("#ColorAdd").click(function () {
+            var selectedColor = $("#txtColor").val();
+            $("#ProductColors").append(new Option(selectedColor, selectedColor));
+            swal("İşlem Başarılı!", "Lütfen Girdiğiniz Rengi Seçin", "success");
+        });
+        $("#AddMaterialMeasuresOfProduct").click(function () {
+
+            var ProductMaterials = $("#ProductMaterials :selected").text();
+            var ProductMeasurements = $("#ProductMeasurements :selected").text();
+            var LowerSpecificationLimit = $("#LowerSpecificationLimit").val();
+            var UpperSpecificationLimit = $("#UpperSpecificationLimit").val();
+            if (LowerSpecificationLimit > 0 &&
+                LowerSpecificationLimit > 0 &&
+                ProductMaterials != "" &&
+                ProductMeasurements != "") {
+                if (LowerSpecificationLimit < LowerSpecificationLimit) {
+                    var Merge = ProductMaterials +
+                        "-" +
+                        ProductMeasurements +
+                        "-" +
+                        LowerSpecificationLimit +
+                        "-" +
+                        UpperSpecificationLimit
+
+                    $("#MaterialMeasuresOfProduct").append(new Option(Merge, Merge));
+                    swal("İşlem Başarılı!", "Lütfen Girdiğiniz Malzeme Ölçüsünü Seçin", "success");
+                } else {
+                    swal("Hata!", "Alt Limit Üst Limitten Küçük Olmalıdır", "error");
+                }
+            } else {
+                swal("Hata!", "Lütfen Bilgileri Düzgün Girin", "error");
+            }
+
+        });
+
+    </script>
+}
+

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Malzeme Hatası Ekle";
+}
+@using StatisticalQualityControl.Models
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph">
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Malzeme Hatası Ekleme Sayfası</h3>
+                </div>
+                <div class="col-md-6">
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">                
+                <form action="/MaterialMistakes/Create" method="post">
+                    Malzeme Adı
+                    <select class="form-control" name="MaterialID">
+                        @foreach (Material mat in ViewBag.material)
+                        {
+                            <option value="@mat.id">@mat.MaterialName</option>
+                        }
+                    </select>
+                    <br />
+                    Hata Adı
+                    <select class="form-control" name="MistakeID">
+                        @foreach (Mistake mis in ViewBag.mistake)
+                        {
+                            <option value="@mis.id">@mis.MistakeName</option>
+                        }
+                    </select>
+                    <br />
+                    <a href="/MaterialMistakes/Index">Geri</a>
+                    <button type="submit" class="btn btn-success">Malzemeye Hata Ekle</button>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
