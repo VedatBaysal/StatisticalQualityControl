@@ -1,3 +1,5 @@
+using StatisticalQualityControl.Services;
+
 namespace StatisticalQualityControl.Models
 {
     using System;
@@ -7,21 +9,14 @@ namespace StatisticalQualityControl.Models
     using System.Data.Entity.Spatial;
 
     [Table("ManufactureMistake")]
-    public partial class ManufactureMistake
+    public partial class ManufactureMistake: EntityObject
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int id { get; set; }
+
         public int ManufactureID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MistakeID { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MistakeOccurenceFactorDetailID { get; set; }
 
         public virtual Manufacture Manufacture { get; set; }

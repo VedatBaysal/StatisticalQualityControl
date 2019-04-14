@@ -13,6 +13,5 @@ namespace StatisticalQualityControl.ViewModel
         public List<Sector> ProductSectors { get; set; }
         public List<Measurement> ProductMeasurements { get; set; }
         public List<MaterialMeasuresOfProduct> MaterialMeasuresOfProducts { get; set; }
-        public List<ProductColor> ProductColors { get; set; }
     }
 }

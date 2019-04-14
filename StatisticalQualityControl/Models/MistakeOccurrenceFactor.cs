@@ -1,3 +1,5 @@
+using StatisticalQualityControl.Services;
+
 namespace StatisticalQualityControl.Models
 {
     using System;
@@ -7,7 +9,7 @@ namespace StatisticalQualityControl.Models
     using System.Data.Entity.Spatial;
 
     [Table("MistakeOccurrenceFactor")]
-    public partial class MistakeOccurrenceFactor
+    public partial class MistakeOccurrenceFactor: EntityObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MistakeOccurrenceFactor()

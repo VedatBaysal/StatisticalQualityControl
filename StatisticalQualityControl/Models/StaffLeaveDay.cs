@@ -1,3 +1,5 @@
+using StatisticalQualityControl.Services;
+
 namespace StatisticalQualityControl.Models
 {
     using System;
@@ -6,7 +8,7 @@ namespace StatisticalQualityControl.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class StaffLeaveDay
+    public partial class StaffLeaveDay: EntityObject
     {
         public int id { get; set; }
 

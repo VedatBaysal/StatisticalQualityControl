@@ -3,7 +3,7 @@
 @model ProductProperties
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Ürün Sümülasyonu Oluştur";
 }
 
 <form action="/Products/Create" method="post">
@@ -27,64 +27,6 @@
                     <input type="text" class="form-control" name="ProductName" placeholder="Ürün Adı">
                 </div>
                 <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-    <br />
-    <br />
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Renk Belirleyin <small>.</small></h2>
-                        <div class="clearfix">
-                            <br />
-                        </div>
-                    </div>
-                    <div class="x_content">
-                        <form class="form-horizontal form-label-left">
-                            <div class="form-group">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="input-group demo2">
-                                        <input type="text" id="txtColor" value="#e01ab5" class="form-control" />
-                                        <span class="input-group-addon"><i></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="divider-dashed"></div>
-
-                            <div class="form-group">
-                                <a href="javascript:;" id="ColorAdd" class="btn btn-primary">Ekle</a>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>Renk Seçin <small>.</small></h2>
-
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="x_content">
-
-                        <form class="form-horizontal form-label-left">
-
-                            <div class="form-group">
-                                <select id="ProductColors" name="ProductColors" class="select2_multiple form-control" multiple></select>
-                            </div>
-                            <div class="divider-dashed"></div>
-
-                            <div class="form-group">
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -212,37 +154,34 @@
                 maximumSelectionLength: 5,
                 placeholder: "En Fazla 5 Seçim Eklenebilir",
                 allowClear: true
+                
             });
         });
     </script>
     <!-- /select2 -->
     <script>
 
-        $("#ColorAdd").click(function () {
-            var selectedColor = $("#txtColor").val();
-            $("#ProductColors").append(new Option(selectedColor, selectedColor));
-            swal("İşlem Başarılı!", "Lütfen Girdiğiniz Rengi Seçin", "success");
-        });
         $("#AddMaterialMeasuresOfProduct").click(function () {
 
             var ProductMaterials = $("#ProductMaterials :selected").text();
             var ProductMeasurements = $("#ProductMeasurements :selected").text();
-            var LowerSpecificationLimit = $("#LowerSpecificationLimit").val();
-            var UpperSpecificationLimit = $("#UpperSpecificationLimit").val();
+            var LowerSpecificationLimit = (parseFloat($("#LowerSpecificationLimit").val()));
+            var UpperSpecificationLimit = parseFloat($("#UpperSpecificationLimit").val());
+
             if (LowerSpecificationLimit > 0 &&
-                LowerSpecificationLimit > 0 &&
+                UpperSpecificationLimit > 0 &&
                 ProductMaterials != "" &&
                 ProductMeasurements != "") {
-                if (LowerSpecificationLimit < LowerSpecificationLimit) {
-                    var Merge = ProductMaterials +
+                if (LowerSpecificationLimit < UpperSpecificationLimit) {
+                    var merge = ProductMaterials +
                         "-" +
                         ProductMeasurements +
                         "-" +
                         LowerSpecificationLimit +
                         "-" +
-                        UpperSpecificationLimit
+                        UpperSpecificationLimit;
 
-                    $("#MaterialMeasuresOfProduct").append(new Option(Merge, Merge));
+                    $("#MaterialMeasuresOfProduct").append(new Option(merge, merge));
                     swal("İşlem Başarılı!", "Lütfen Girdiğiniz Malzeme Ölçüsünü Seçin", "success");
                 } else {
                     swal("Hata!", "Alt Limit Üst Limitten Küçük Olmalıdır", "error");

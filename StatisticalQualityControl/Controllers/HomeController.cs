@@ -9,7 +9,6 @@ namespace StatisticalQualityControl.Controllers
 {
     public class HomeController : Controller
     {
-        StatisticalQualityControlModel db = new StatisticalQualityControlModel();
         // GET: Home
         public ActionResult Index()
         {

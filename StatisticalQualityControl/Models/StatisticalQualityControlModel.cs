@@ -8,7 +8,7 @@ namespace StatisticalQualityControl.Models
     public partial class StatisticalQualityControlModel : DbContext
     {
         public StatisticalQualityControlModel()
-            : base("name=StatisticalQualityControl")
+            : base("name=StatisticalQualityControlModel2")
         {
         }
 
@@ -21,14 +21,12 @@ namespace StatisticalQualityControl.Models
         public virtual DbSet<MistakeOccurenceFactorDetail> MistakeOccurenceFactorDetails { get; set; }
         public virtual DbSet<MistakeOccurrenceFactor> MistakeOccurrenceFactors { get; set; }
         public virtual DbSet<Mistake> Mistakes { get; set; }
-        public virtual DbSet<ProductColor> ProductColors { get; set; }
         public virtual DbSet<ProductMaterial> ProductMaterials { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Sector> Sectors { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<StaffLeaveDay> StaffLeaveDays { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -84,11 +82,7 @@ namespace StatisticalQualityControl.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Product>()
-                .HasOptional(e => e.Manufacture)
-                .WithRequired(e => e.Product);
-
-            modelBuilder.Entity<Product>()
-                .HasMany(e => e.ProductColors)
+                .HasMany(e => e.Manufactures)
                 .WithRequired(e => e.Product)
                 .WillCascadeOnDelete(false);
 

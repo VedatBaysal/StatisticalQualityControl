@@ -7,23 +7,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StatisticalQualityControl.Models;
+using static StatisticalQualityControl.Services.SingletonDbModel;
 
 namespace StatisticalQualityControl.Controllers
 {
     public class MistakeOccurenceFactorDetailsController : Controller
     {
-        private StatisticalQualityControlModel db = new StatisticalQualityControlModel();
 
         // GET: MistakeOccurenceFactorDetails
         public ActionResult Index()
         {
-            var mistakeOccurenceFactorDetails = db.MistakeOccurenceFactorDetails.Include(m => m.MistakeOccurrenceFactor);
+            var mistakeOccurenceFactorDetails = Db.MistakeOccurenceFactorDetails.Include(m => m.MistakeOccurrenceFactor);
             return View(mistakeOccurenceFactorDetails.ToList());
         }
         // GET: MistakeOccurenceFactorDetails/Create
         public ActionResult Create()
         {
-            ViewBag.MistakeOccurenceFactorID = new SelectList(db.MistakeOccurrenceFactors, "id", "MistakeOccurenceFactorName");
+            ViewBag.MistakeOccurenceFactorID = new SelectList(Db.MistakeOccurrenceFactors, "id", "MistakeOccurenceFactorName");
             return View();
         }
 
@@ -36,12 +36,12 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.MistakeOccurenceFactorDetails.Add(mistakeOccurenceFactorDetail);
-                db.SaveChanges();
+                Db.MistakeOccurenceFactorDetails.Add(mistakeOccurenceFactorDetail);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.MistakeOccurenceFactorID = new SelectList(db.MistakeOccurrenceFactors, "id", "MistakeOccurenceFactorName", mistakeOccurenceFactorDetail.MistakeOccurenceFactorID);
+            ViewBag.MistakeOccurenceFactorID = new SelectList(Db.MistakeOccurrenceFactors, "id", "MistakeOccurenceFactorName", mistakeOccurenceFactorDetail.MistakeOccurenceFactorID);
             return View(mistakeOccurenceFactorDetail);
         }
 
@@ -52,12 +52,12 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MistakeOccurenceFactorDetail mistakeOccurenceFactorDetail = db.MistakeOccurenceFactorDetails.Find(id);
+            MistakeOccurenceFactorDetail mistakeOccurenceFactorDetail = Db.MistakeOccurenceFactorDetails.Find(id);
             if (mistakeOccurenceFactorDetail == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MistakeOccurenceFactorID = new SelectList(db.MistakeOccurrenceFactors, "id", "MistakeOccurenceFactorName", mistakeOccurenceFactorDetail.MistakeOccurenceFactorID);
+            ViewBag.MistakeOccurenceFactorID = new SelectList(Db.MistakeOccurrenceFactors, "id", "MistakeOccurenceFactorName", mistakeOccurenceFactorDetail.MistakeOccurenceFactorID);
             return View(mistakeOccurenceFactorDetail);
         }
 
@@ -70,11 +70,11 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(mistakeOccurenceFactorDetail).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(mistakeOccurenceFactorDetail).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.MistakeOccurenceFactorID = new SelectList(db.MistakeOccurrenceFactors, "id", "MistakeOccurenceFactorName", mistakeOccurenceFactorDetail.MistakeOccurenceFactorID);
+            ViewBag.MistakeOccurenceFactorID = new SelectList(Db.MistakeOccurrenceFactors, "id", "MistakeOccurenceFactorName", mistakeOccurenceFactorDetail.MistakeOccurenceFactorID);
             return View(mistakeOccurenceFactorDetail);
         }
 
@@ -85,7 +85,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MistakeOccurenceFactorDetail mistakeOccurenceFactorDetail = db.MistakeOccurenceFactorDetails.Find(id);
+            MistakeOccurenceFactorDetail mistakeOccurenceFactorDetail = Db.MistakeOccurenceFactorDetails.Find(id);
             if (mistakeOccurenceFactorDetail == null)
             {
                 return HttpNotFound();
@@ -98,19 +98,10 @@ namespace StatisticalQualityControl.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MistakeOccurenceFactorDetail mistakeOccurenceFactorDetail = db.MistakeOccurenceFactorDetails.Find(id);
-            db.MistakeOccurenceFactorDetails.Remove(mistakeOccurenceFactorDetail);
-            db.SaveChanges();
+            MistakeOccurenceFactorDetail mistakeOccurenceFactorDetail = Db.MistakeOccurenceFactorDetails.Find(id);
+            Db.MistakeOccurenceFactorDetails.Remove(mistakeOccurenceFactorDetail);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

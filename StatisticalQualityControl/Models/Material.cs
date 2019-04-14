@@ -1,3 +1,5 @@
+using StatisticalQualityControl.Services;
+
 namespace StatisticalQualityControl.Models
 {
     using System;
@@ -6,7 +8,7 @@ namespace StatisticalQualityControl.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Material
+    public partial class Material: EntityObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Material()

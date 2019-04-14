@@ -1,3 +1,5 @@
+using StatisticalQualityControl.Services;
+
 namespace StatisticalQualityControl.Models
 {
     using System;
@@ -6,7 +8,7 @@ namespace StatisticalQualityControl.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ProductMaterial
+    public partial class ProductMaterial: EntityObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductMaterial()
@@ -14,7 +16,6 @@ namespace StatisticalQualityControl.Models
             MaterialMeasuresOfProducts = new HashSet<MaterialMeasuresOfProduct>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int id { get; set; }
 
         public int ProductID { get; set; }

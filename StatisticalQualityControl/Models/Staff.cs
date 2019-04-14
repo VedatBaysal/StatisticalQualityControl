@@ -1,3 +1,5 @@
+using StatisticalQualityControl.Services;
+
 namespace StatisticalQualityControl.Models
 {
     using System;
@@ -7,7 +9,7 @@ namespace StatisticalQualityControl.Models
     using System.Data.Entity.Spatial;
 
     [Table("Staff")]
-    public partial class Staff
+    public partial class Staff: EntityObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Staff()
@@ -27,11 +29,9 @@ namespace StatisticalQualityControl.Models
         public string LastName { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
         [Column(TypeName = "date")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfStart { get; set; }
 
         [Column(TypeName = "money")]

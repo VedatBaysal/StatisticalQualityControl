@@ -7,17 +7,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StatisticalQualityControl.Models;
+using static StatisticalQualityControl.Services.SingletonDbModel;
 
 namespace StatisticalQualityControl.Controllers
 {
     public class MaterialsController : Controller
     {
-        private StatisticalQualityControlModel db = new StatisticalQualityControlModel();
-
         // GET: Materials
         public ActionResult Index()
         {
-            return View(db.Materials.ToList());
+            return View(Db.Materials.ToList());
         }
        
         // GET: Materials/Create
@@ -35,8 +34,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Materials.Add(material);
-                db.SaveChanges();
+                Db.Materials.Add(material);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -50,7 +49,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Material material = db.Materials.Find(id);
+            Material material = Db.Materials.Find(id);
             if (material == null)
             {
                 return HttpNotFound();
@@ -67,8 +66,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(material).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(material).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(material);
@@ -81,7 +80,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Material material = db.Materials.Find(id);
+            Material material = Db.Materials.Find(id);
             if (material == null)
             {
                 return HttpNotFound();
@@ -94,19 +93,11 @@ namespace StatisticalQualityControl.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Material material = db.Materials.Find(id);
-            db.Materials.Remove(material);
-            db.SaveChanges();
+            Material material = Db.Materials.Find(id);
+            Db.Materials.Remove(material);
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        
     }
 }

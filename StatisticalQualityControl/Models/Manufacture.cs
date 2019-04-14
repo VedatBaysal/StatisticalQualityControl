@@ -1,3 +1,5 @@
+using StatisticalQualityControl.Services;
+
 namespace StatisticalQualityControl.Models
 {
     using System;
@@ -7,7 +9,7 @@ namespace StatisticalQualityControl.Models
     using System.Data.Entity.Spatial;
 
     [Table("Manufacture")]
-    public partial class Manufacture
+    public partial class Manufacture:EntityObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Manufacture()

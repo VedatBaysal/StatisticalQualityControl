@@ -1,3 +1,5 @@
+using StatisticalQualityControl.Services;
+
 namespace StatisticalQualityControl.Models
 {
     using System;
@@ -6,12 +8,12 @@ namespace StatisticalQualityControl.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Product
+    public partial class Product: EntityObject
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            ProductColors = new HashSet<ProductColor>();
+            Manufactures = new HashSet<Manufacture>();
             ProductMaterials = new HashSet<ProductMaterial>();
             Sectors = new HashSet<Sector>();
         }
@@ -23,10 +25,8 @@ namespace StatisticalQualityControl.Models
 
         public bool Discontinued { get; set; }
 
-        public virtual Manufacture Manufacture { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductColor> ProductColors { get; set; }
+        public virtual ICollection<Manufacture> Manufactures { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductMaterial> ProductMaterials { get; set; }

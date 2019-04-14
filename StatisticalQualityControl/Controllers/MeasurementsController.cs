@@ -7,17 +7,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StatisticalQualityControl.Models;
+using static StatisticalQualityControl.Services.SingletonDbModel;
 
 namespace StatisticalQualityControl.Controllers
 {
     public class MeasurementsController : Controller
     {
-        private StatisticalQualityControlModel db = new StatisticalQualityControlModel();
-
         // GET: Measurements
         public ActionResult Index()
         {
-            return View(db.Measurements.ToList());
+            return View(Db.Measurements.ToList());
         }
         
         // GET: Measurements/Create
@@ -35,8 +34,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Measurements.Add(measurement);
-                db.SaveChanges();
+                Db.Measurements.Add(measurement);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -50,7 +49,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Measurement measurement = db.Measurements.Find(id);
+            Measurement measurement = Db.Measurements.Find(id);
             if (measurement == null)
             {
                 return HttpNotFound();
@@ -67,8 +66,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(measurement).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(measurement).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(measurement);
@@ -81,7 +80,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Measurement measurement = db.Measurements.Find(id);
+            Measurement measurement = Db.Measurements.Find(id);
             if (measurement == null)
             {
                 return HttpNotFound();
@@ -94,19 +93,10 @@ namespace StatisticalQualityControl.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Measurement measurement = db.Measurements.Find(id);
-            db.Measurements.Remove(measurement);
-            db.SaveChanges();
+            Measurement measurement = Db.Measurements.Find(id);
+            Db.Measurements.Remove(measurement);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

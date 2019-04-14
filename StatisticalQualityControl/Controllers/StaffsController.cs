@@ -7,17 +7,17 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StatisticalQualityControl.Models;
+using static StatisticalQualityControl.Services.SingletonDbModel;
 
 namespace StatisticalQualityControl.Controllers
 {
     public class StaffsController : Controller
     {
-        private StatisticalQualityControlModel db = new StatisticalQualityControlModel();
 
         // GET: Staffs
         public ActionResult Index()
         {
-            return View(db.Staffs.ToList());
+            return View(Db.Staffs.ToList());
         }
         // GET: Staffs/Create
         public ActionResult Create()
@@ -34,8 +34,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Staffs.Add(staff);
-                db.SaveChanges();
+                Db.Staffs.Add(staff);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -49,7 +49,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = db.Staffs.Find(id);
+            Staff staff = Db.Staffs.Find(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -66,8 +66,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(staff).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(staff).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(staff);
@@ -80,7 +80,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = db.Staffs.Find(id);
+            Staff staff = Db.Staffs.Find(id);
             if (staff == null)
             {
                 return HttpNotFound();
@@ -93,19 +93,10 @@ namespace StatisticalQualityControl.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Staff staff = db.Staffs.Find(id);
-            db.Staffs.Remove(staff);
-            db.SaveChanges();
+            Staff staff = Db.Staffs.Find(id);
+            Db.Staffs.Remove(staff);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

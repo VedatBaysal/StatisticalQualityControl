@@ -7,17 +7,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StatisticalQualityControl.Models;
+using static StatisticalQualityControl.Services.SingletonDbModel;
 
 namespace StatisticalQualityControl.Controllers
 {
     public class MistakeOccurrenceFactorsController : Controller
     {
-        private StatisticalQualityControlModel db = new StatisticalQualityControlModel();
-
         // GET: MistakeOccurrenceFactors
         public ActionResult Index()
         {
-            return View(db.MistakeOccurrenceFactors.ToList());
+            return View(Db.MistakeOccurrenceFactors.ToList());
         }
         // GET: MistakeOccurrenceFactors/Create
         public ActionResult Create()
@@ -34,8 +33,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.MistakeOccurrenceFactors.Add(mistakeOccurrenceFactor);
-                db.SaveChanges();
+                Db.MistakeOccurrenceFactors.Add(mistakeOccurrenceFactor);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -49,7 +48,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MistakeOccurrenceFactor mistakeOccurrenceFactor = db.MistakeOccurrenceFactors.Find(id);
+            MistakeOccurrenceFactor mistakeOccurrenceFactor = Db.MistakeOccurrenceFactors.Find(id);
             if (mistakeOccurrenceFactor == null)
             {
                 return HttpNotFound();
@@ -66,8 +65,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(mistakeOccurrenceFactor).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(mistakeOccurrenceFactor).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(mistakeOccurrenceFactor);
@@ -80,7 +79,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            MistakeOccurrenceFactor mistakeOccurrenceFactor = db.MistakeOccurrenceFactors.Find(id);
+            MistakeOccurrenceFactor mistakeOccurrenceFactor = Db.MistakeOccurrenceFactors.Find(id);
             if (mistakeOccurrenceFactor == null)
             {
                 return HttpNotFound();
@@ -93,19 +92,10 @@ namespace StatisticalQualityControl.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            MistakeOccurrenceFactor mistakeOccurrenceFactor = db.MistakeOccurrenceFactors.Find(id);
-            db.MistakeOccurrenceFactors.Remove(mistakeOccurrenceFactor);
-            db.SaveChanges();
+            MistakeOccurrenceFactor mistakeOccurrenceFactor = Db.MistakeOccurrenceFactors.Find(id);
+            Db.MistakeOccurrenceFactors.Remove(mistakeOccurrenceFactor);
+            Db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

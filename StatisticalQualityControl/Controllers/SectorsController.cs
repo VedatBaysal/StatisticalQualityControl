@@ -7,17 +7,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StatisticalQualityControl.Models;
+using static StatisticalQualityControl.Services.SingletonDbModel;
 
 namespace StatisticalQualityControl.Controllers
 {
     public class SectorsController : Controller
     {
-        private StatisticalQualityControlModel db = new StatisticalQualityControlModel();
-
         // GET: Sectors
         public ActionResult Index()
         {
-            return View(db.Sectors.ToList());
+            return View(Db.Sectors.ToList());
         }
         // GET: Sectors/Create
         public ActionResult Create()
@@ -34,8 +33,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Sectors.Add(sector);
-                db.SaveChanges();
+                Db.Sectors.Add(sector);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -49,7 +48,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Sector sector = db.Sectors.Find(id);
+            Sector sector = Db.Sectors.Find(id);
             if (sector == null)
             {
                 return HttpNotFound();
@@ -66,19 +65,11 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(sector).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(sector).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(sector);
-        }
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

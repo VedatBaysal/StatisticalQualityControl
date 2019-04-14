@@ -7,17 +7,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StatisticalQualityControl.Models;
+using static StatisticalQualityControl.Services.SingletonDbModel;
 
 namespace StatisticalQualityControl.Controllers
 {
     public class MistakesController : Controller
     {
-        private StatisticalQualityControlModel db = new StatisticalQualityControlModel();
-
         // GET: Mistakes
         public ActionResult Index()
         {
-            return View(db.Mistakes.ToList());
+            return View(Db.Mistakes.ToList());
         }
 
         // GET: Mistakes/Details/5
@@ -27,7 +26,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Mistake mistake = db.Mistakes.Find(id);
+            Mistake mistake = Db.Mistakes.Find(id);
             if (mistake == null)
             {
                 return HttpNotFound();
@@ -50,8 +49,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Mistakes.Add(mistake);
-                db.SaveChanges();
+                Db.Mistakes.Add(mistake);
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +64,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Mistake mistake = db.Mistakes.Find(id);
+            Mistake mistake = Db.Mistakes.Find(id);
             if (mistake == null)
             {
                 return HttpNotFound();
@@ -82,8 +81,8 @@ namespace StatisticalQualityControl.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(mistake).State = EntityState.Modified;
-                db.SaveChanges();
+                Db.Entry(mistake).State = EntityState.Modified;
+                Db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(mistake);
@@ -96,7 +95,7 @@ namespace StatisticalQualityControl.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Mistake mistake = db.Mistakes.Find(id);
+            Mistake mistake = Db.Mistakes.Find(id);
             if (mistake == null)
             {
                 return HttpNotFound();
@@ -109,19 +108,11 @@ namespace StatisticalQualityControl.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Mistake mistake = db.Mistakes.Find(id);
-            db.Mistakes.Remove(mistake);
-            db.SaveChanges();
+            Mistake mistake = Db.Mistakes.Find(id);
+            Db.Mistakes.Remove(mistake);
+            Db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        
     }
 }

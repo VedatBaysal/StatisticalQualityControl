@@ -2,6 +2,8 @@
 @{
     ViewBag.Title = "Simülasyon Ürün Listesi";
 }
+@using StatisticalQualityControl.Models
+@model List<Product>
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="dashboard_graph">
@@ -16,10 +18,64 @@
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 col-xs-12">
-                ...
+                <table id="myTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>Ürün Adı</th>
+                            <th>Aktif Mi</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Product product in Model)
+                        {
+                            <tr>
+                                <td>@product.ProductName</td>
+                                <td>
+                                    @if (product.Discontinued == false)
+                                    {
+                                        <i style="font-size: 20px; color: #32cd32" class="fa fa-check"></i>
+                                    }
+                                    else
+                                    {
+                                        <i style="font-size: 20px; color: #dc143c" class="fa fa-close"></i>
+                                    }
+                                </td>
+                                <td>
+                                    <a href="/Products/Edit/@product.id" class="btn btn-success">Güncelle</a>
+                                    <a href="/Products/Delete/@product.id" id="delete" class="btn btn-danger">Sil</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
             </div>
             <div class="clearfix"></div>
         </div>
     </div>
 </div>
+@section scripts
+{
+    <script>
+        $("body").on("click",
+            "#delete",
+            function (e) {
+                let _true = this.href; // Evet'e basar ise devam etsin diye
+                e.preventDefault(); // Delete işlemini engellemek için
+                swal({
+                    title: "Silmek istediğine emin misin?",
+                    text: "Silersen üzülmeyesin!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) { //Eğer true ise
+                            window.location = _true; // işlemi devam ettir
+                        }
+                    });
+            });
+    </script>
+}
 
